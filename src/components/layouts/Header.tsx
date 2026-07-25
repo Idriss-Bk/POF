@@ -64,7 +64,7 @@ function Header() {
 
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-50 bg-neutral-900 border-b border-white/10">
+      <header className="fixed top-0 inset-x-0 z-50 bg-black border-b border-white/10">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 h-20 flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="text-gray-50 font-semibold tracking-wide text-lg">
