@@ -1,6 +1,7 @@
 import { useRef, useState, useLayoutEffect } from 'react'
 import gsap from 'gsap'
 import { primaryLinks, menuLinks } from '../../data/navigation'
+import logo from '../../assets/nav-logo.png'
 
 function Header() {
   const [open, setOpen] = useState<boolean>(false)
@@ -67,7 +68,7 @@ function Header() {
         <div className="mx-auto max-w-7xl px-6 lg:px-10 h-20 flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="text-gray-50 font-semibold tracking-wide text-lg">
-            POF <span className="text-gold">RENTAL</span>
+          <img src={logo} alt="POF" className='h-12 w-auto' mb-4 />
           </a>
 
           {/* Primary links — hidden on small screens, shown from md up */}
@@ -76,7 +77,7 @@ function Header() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-gray-50 hover:text-gold text-sm tracking-wide transition-colors"
+                className="text-gray-50 hover:text-gold text-sm tracking-wide transition-colors font-display text-lg tracking-wide"
               >
                 {link.label}
               </a>
@@ -86,7 +87,7 @@ function Header() {
           <div className="flex items-center gap-5">
             <a
               href="/easytogo"
-              className="hidden sm:inline-block bg-gold text-neutral-900 text-sm font-medium px-5 py-2.5 rounded-full hover:bg-gold/90 transition-colors"
+              className="hidden sm:inline-block bg-gold text-gray-50 text-sm font-display text-lg tracking-wide border-1  px-5 py-2.5 rounded-full hover:bg-gold/90 transition-colors"
             >
               Book A Car
             </a>
@@ -112,14 +113,14 @@ function Header() {
         className="fixed inset-0 z-40 bg-neutral-900 flex items-center justify-center"
         style={{ clipPath: 'inset(0% 0% 100% 0%)' }}
       >
-        <nav className="flex flex-col items-center gap-6 ">
+        <nav className="flex flex-col items-center gap-6  ">
           {menuLinks.map((link) => (
             <a
               key={link.label}
               ref={addLinkRef}
               href={link.href}
               onClick={toggleMenu}
-              className="text-white text-3xl md:text-5xl font-light tracking-tight hover:text-gold transition-colors"
+              className="text-white text-3xl md:text-5xl font-display text-lg tracking-wide font-light  tracking-tight hover:text-gold transition-colors"
             >
               {link.label}
             </a>
