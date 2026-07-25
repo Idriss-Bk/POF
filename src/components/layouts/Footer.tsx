@@ -8,6 +8,7 @@ import {
   FaLinkedinIn,
   FaYoutube,
   FaSnapchatGhost,
+  FaMapMarkerAlt,
 } from 'react-icons/fa'
 import logo from '../../assets/nav-logo.png'
 import { locations, brands, usefulLinks, socialLinks } from '../../data/footer'
@@ -86,8 +87,9 @@ function Footer() {
                   <li key={item.label}>
                     <a
                       href={item.href}
-                      className="text-sm font-light tracking-wide text-gray-50/70 hover:text-gold transition-colors"
+                      className="flex items-center gap-2 text-sm font-light tracking-wide text-gray-50/70 hover:text-gold transition-colors"
                     >
+                      <FaMapMarkerAlt className="text-gold/70 shrink-0" size={12} />
                       {item.label}
                     </a>
                   </li>
@@ -132,22 +134,51 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Follow us — horizontal icon row */}
-          <div ref={addColumnRef}>
-            <h3 className="font-display text-base tracking-wide mb-4 text-gray-50">Follow Us</h3>
-            <div className="flex items-center gap-3 flex-wrap">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-50/15 text-gray-50/80 hover:text-black hover:bg-gold hover:border-gold transition-colors duration-300"
+          {/* Follow us + Newsletter */}
+          <div ref={addColumnRef} className="flex flex-col gap-8">
+            <div>
+              <h3 className="font-display text-base tracking-wide mb-4 text-gray-50">
+                Follow Us
+              </h3>
+              <div className="flex items-center gap-3 flex-wrap">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-50/15 text-gray-50/80 hover:text-black hover:bg-gold hover:border-gold transition-colors duration-300"
+                  >
+                    {socialIcons[social.icon]}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Newsletter signup */}
+            <div className="max-w-xs">
+              <p className="font-display text-sm tracking-wide text-gray-50/70 mb-3">
+                Get exclusive offers and the newest arrivals to the fleet.
+              </p>
+              <form
+                onSubmit={(e) => e.preventDefault()}
+                className="flex items-center border-b border-gray-50/20 focus-within:border-gold transition-colors duration-300"
+              >
+                <input
+                  type="email"
+                  required
+                  placeholder="Your email address"
+                  className="flex-1 bg-transparent py-2 text-sm font-light tracking-wide text-gray-50 placeholder:text-gray-50/40 focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  aria-label="Subscribe"
+                  className="text-xs font-medium tracking-wide text-gold hover:text-gray-50 transition-colors duration-300 pl-3"
                 >
-                  {socialIcons[social.icon]}
-                </a>
-              ))}
+                  Subscribe
+                </button>
+              </form>
             </div>
           </div>
         </div>
