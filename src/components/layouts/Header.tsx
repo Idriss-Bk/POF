@@ -97,10 +97,10 @@ function Header() {
               onClick={toggleMenu}
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
-              className="relative w-9 h-9 flex flex-col items-center justify-center gap-[6px] cursor-pointer"
+              className="relative w-9 h-9 flex flex-col items-center justify-center gap-[8px] cursor-pointer"
             >
               <span ref={line1} className="block w-8 h-[1px] bg-gray-50 origin-center " />
-              <span ref={line2} className="block w-6 h-[1px] bg-gray-50 " />
+              <span ref={line2} className="block w-6 h-[1px] bg-gray-50  ml-2   " />
               <span ref={line3} className="block w-8 h-[1px] bg-gray-50 origin-center" />
             </button>
           </div>
