@@ -1,9 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { FaSearch } from 'react-icons/fa'
+
+// Desktop slides
 import heroimg from '../assets/newhero.png'
+import heroimg2 from '../assets/newhero2.png'
+import heroimg3 from '../assets/newhero3.png'
+
+// Mobile slides
 import heroMobileImg from '../assets/newhero-mobile.png'
-import hero3 from '../assets/hero-3.webp'
+import heroMobileImg2 from '../assets/newhero-mobile2.png'
+import heroMobileImg3 from '../assets/newhero-mobile3.png'
+
 import BookingModal from './BookingModal'
 
 const suggestions = [
@@ -25,6 +33,15 @@ const marqueeBrands = [
   'McLaren',
 ]
 
+// Slide data — desktop + mobile pair per slide
+const slides = [
+  { desktop: heroimg, mobile: heroMobileImg },
+  { desktop: heroimg2, mobile: heroMobileImg2 },
+  { desktop: heroimg3, mobile: heroMobileImg3 },
+]
+
+const AUTOPLAY_DELAY = 5000
+
 function Hero() {
   const marqueeRef = useRef<HTMLDivElement | null>(null)
   const suggestionRef = useRef<HTMLSpanElement | null>(null)
@@ -32,6 +49,103 @@ function Hero() {
   const [query, setQuery] = useState('')
   const [suggestionIndex, setSuggestionIndex] = useState(0)
   const [modalOpen, setModalOpen] = useState(false)
+  const [activeSlide, setActiveSlide] = useState(0)
+
+  const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const desktopSlideRefs = useRef<(HTMLDivElement | null)[]>([])
+  const mobileSlideRefs = useRef<(HTMLDivElement | null)[]>([])
+  const dotRefs = useRef<(HTMLButtonElement | null)[]>([])
+  const isFirstRun = useRef(true)
+
+  const startAutoplay = () => {
+    if (autoplayRef.current) clearInterval(autoplayRef.current)
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduced) return
+    autoplayRef.current = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % slides.length)
+    }, AUTOPLAY_DELAY)
+  }
+
+  // Autoplay slider
+  useEffect(() => {
+    startAutoplay()
+    return () => {
+      if (autoplayRef.current) clearInterval(autoplayRef.current)
+    }
+  }, [])
+
+  // GSAP crossfade + Ken Burns whenever activeSlide changes
+  useEffect(() => {
+    const allDesktop = desktopSlideRefs.current
+    const allMobile = mobileSlideRefs.current
+
+    allDesktop.forEach((el, index) => {
+      const mobileEl = allMobile[index]
+      if (!el || !mobileEl) return // guard: skip if refs aren't ready yet
+
+      const isActive = index === activeSlide
+
+      if (isFirstRun.current) {
+        // Set initial state without animating on mount
+        gsap.set([el, mobileEl], {
+          opacity: isActive ? 1 : 0,
+          scale: isActive ? 1 : 1.08,
+          zIndex: isActive ? 1 : 0,
+        })
+        return
+      }
+
+      if (isActive) {
+        gsap.killTweensOf([el, mobileEl])
+        gsap.fromTo(
+          [el, mobileEl],
+          { opacity: 0, scale: 1.08 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 1.4,
+            ease: 'power2.out',
+            zIndex: 1,
+          }
+        )
+        // Slow continuous zoom while active (Ken Burns)
+        gsap.to([el, mobileEl], {
+          scale: 1.06,
+          duration: AUTOPLAY_DELAY / 1000 + 1.4,
+          ease: 'none',
+        })
+      } else {
+        gsap.killTweensOf([el, mobileEl])
+        gsap.to([el, mobileEl], {
+          opacity: 0,
+          duration: 1,
+          ease: 'power2.inOut',
+          zIndex: 0,
+        })
+      }
+    })
+
+    isFirstRun.current = false
+  }, [activeSlide])
+
+  // Animate dots on change
+  useEffect(() => {
+    dotRefs.current.forEach((dot, index) => {
+      if (!dot) return
+      gsap.to(dot, {
+        width: index === activeSlide ? 24 : 8,
+        backgroundColor: index === activeSlide ? '#E7D3A1' : 'rgba(255,255,255,0.4)',
+        duration: 0.4,
+        ease: 'power2.out',
+      })
+    })
+  }, [activeSlide])
+
+  const goToSlide = (index: number) => {
+    if (index === activeSlide) return
+    setActiveSlide(index)
+    startAutoplay()
+  }
 
   // Infinite brand marquee
   useEffect(() => {
@@ -75,21 +189,33 @@ function Hero() {
 
   return (
     <section className="relative bg-black text-gray-50 overflow-hidden h-screen min-h-[640px]">
-      {/* Mobile background — shown below md breakpoint */}
-      <div
-        className="absolute inset-0 bg-cover bg-center block md:hidden"
-        style={{ backgroundImage: `url(${heroMobileImg})` }}
-      />
-      {/* Desktop background — shown from md breakpoint up */}
-      <div
-        className="absolute inset-0 bg-cover bg-center hidden md:block"
-        style={{ backgroundImage: `url(${heroimg})` }}
-      />
+      {/* Slides */}
+      {slides.map((slide, index) => (
+        <div key={index}>
+          {/* Mobile background — shown below md breakpoint */}
+          <div
+            ref={(el) => {
+              mobileSlideRefs.current[index] = el
+            }}
+            className="absolute inset-0 bg-cover bg-center block md:hidden will-change-transform"
+            style={{ backgroundImage: `url(${slide.mobile})` }}
+          />
+          {/* Desktop background — shown from md breakpoint up */}
+          <div
+            ref={(el) => {
+              desktopSlideRefs.current[index] = el
+            }}
+            className="absolute inset-0 bg-cover bg-center hidden md:block will-change-transform"
+            style={{ backgroundImage: `url(${slide.desktop})` }}
+          />
+        </div>
+      ))}
+
       {/* Base veil — subtle global darken */}
-      <div className="absolute inset-0 bg-black/5" />
+      <div className="absolute inset-0 bg-black/5 z-[2]" />
       {/* Radial gradient — darkens the center where the search bar lives */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 z-[2]"
         style={{
           background:
             'radial-gradient(ellipse 80% 70% at 50% 50%, rgba(0,0,0,0.20) 0%, transparent 100%)',
@@ -131,6 +257,22 @@ function Hero() {
             </button>
           </div>
         </div>
+      </div>
+
+      {/* Slider dots */}
+      <div className="absolute bottom-24 inset-x-0 z-10 flex items-center justify-center gap-2">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            ref={(el) => {
+              dotRefs.current[index] = el
+            }}
+            type="button"
+            aria-label={`Go to slide ${index + 1}`}
+            onClick={() => goToSlide(index)}
+            className="h-2 w-2 rounded-full bg-white/40 hover:bg-white/60 transition-colors"
+          />
+        ))}
       </div>
 
       {/* Brand marquee */}
