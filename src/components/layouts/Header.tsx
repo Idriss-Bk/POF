@@ -1,5 +1,6 @@
 import { useRef, useState, useLayoutEffect } from 'react'
 import gsap from 'gsap'
+import { FaRegUser } from 'react-icons/fa'
 import { primaryLinks, menuLinks } from '../../data/navigation'
 import logo from '../../assets/nav-logo.png'
 
@@ -67,8 +68,8 @@ function Header() {
       <header className="fixed top-0 inset-x-0 z-50 bg-black border-b border-white/10">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 h-20 flex items-center justify-between">
           {/* Logo */}
-          <a href="/" className="text-gray-50 font-semibold tracking-wide text-lg">
-          <img src={logo} alt="POF" className='h-12 w-auto' mb-4 />
+          <a href="/" className="flex items-center">
+            <img src={logo} alt="POF" className="h-12 w-auto" />
           </a>
 
           {/* Primary links — hidden on small screens, shown from md up */}
@@ -77,19 +78,33 @@ function Header() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-gray-50 hover:text-gold text-sm tracking-wide transition-colors font-display text-lg tracking-wide"
+                className="relative group py-2 text-gray-50 hover:text-gold text-sm font-display tracking-wide transition-colors"
               >
                 {link.label}
+                <span className="absolute left-0 -bottom-0.5 h-px w-full bg-[] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out" />
               </a>
             ))}
           </nav>
 
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-4">
+            
+            
+
             <a
               href="/easytogo"
-              className="hidden sm:inline-block bg-gold text-gray-50 text-sm font-display text-lg tracking-wide border-1  px-5 py-2.5 rounded-full hover:bg-gold/90 transition-colors"
+              className="hidden sm:inline-block  text-white text-sm font-display tracking-wide px-5 py-2.5 border-[1px] rounded-full hover:bg-[#E7D3A1] hover:text-black transition-colors duration-300 ease-out "
             >
               Book A Car
+            </a>
+
+
+{/* Login / account — icon only */}
+            <a
+              href="/login"
+              aria-label="Login or sign up"
+              className="w-9 h-9 flex items-center justify-center rounded-full text-gray-50 hover:text-gold transition-colors"
+            >
+              <FaRegUser size={16} />
             </a>
 
             {/* Icon menu button — visible at every screen size */}
@@ -99,8 +114,8 @@ function Header() {
               aria-expanded={open}
               className="relative w-9 h-9 flex flex-col items-center justify-center gap-[8px] cursor-pointer"
             >
-              <span ref={line1} className="block w-8 h-[1px] bg-gray-50 origin-center " />
-              <span ref={line2} className="block w-6 h-[1px] bg-gray-50  ml-2   " />
+              <span ref={line1} className="block w-8 h-[1px] bg-gray-50 origin-center" />
+              <span ref={line2} className="block w-6 h-[1px] bg-gray-50 ml-2" />
               <span ref={line3} className="block w-8 h-[1px] bg-gray-50 origin-center" />
             </button>
           </div>
@@ -113,14 +128,14 @@ function Header() {
         className="fixed inset-0 z-40 bg-black flex items-center justify-center"
         style={{ clipPath: 'inset(0% 0% 100% 0%)' }}
       >
-        <nav className="flex flex-col items-center gap-6  ">
+        <nav className="flex flex-col items-center gap-6">
           {menuLinks.map((link) => (
             <a
               key={link.label}
               ref={addLinkRef}
               href={link.href}
               onClick={toggleMenu}
-              className="text-white text-3xl md:text-5xl font-display text-lg tracking-wide font-light  tracking-tight hover:text-gold transition-colors"
+              className="text-white text-3xl md:text-5xl font-display font-light tracking-tight hover:text-gold transition-colors"
             >
               {link.label}
             </a>

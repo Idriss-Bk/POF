@@ -1,7 +1,20 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
+import { FaSearch } from 'react-icons/fa'
+import hero1 from '../assets/hero-1.png'
+import hero2 from '../assets/hero-2.png'
+import hero3 from '../assets/hero-3.webp'
+import BookingModal from './BookingModal'
 
-const marqueeBrands: string[] = [
+const suggestions = [
+  'Lamborghini Huracán',
+  'Ferrari 488 GTB',
+  'Rolls-Royce Cullinan',
+  'Bentley Continental GT',
+  'Mercedes-Benz G63 AMG',
+]
+
+const marqueeBrands = [
   'Ferrari',
   'Lamborghini',
   'Rolls-Royce',
@@ -13,147 +26,119 @@ const marqueeBrands: string[] = [
 ]
 
 function Hero() {
-  const heroRef = useRef<HTMLElement | null>(null)
-  const eyebrowRef = useRef<HTMLSpanElement | null>(null)
-  const headlineRef = useRef<HTMLHeadingElement | null>(null)
-  const subtextRef = useRef<HTMLParagraphElement | null>(null)
-  const ctaRef = useRef<HTMLDivElement | null>(null)
-  const specCardRef = useRef<HTMLDivElement | null>(null)
   const marqueeRef = useRef<HTMLDivElement | null>(null)
+  const suggestionRef = useRef<HTMLSpanElement | null>(null)
 
-  useLayoutEffect(() => {
+  const [query, setQuery] = useState('')
+  const [suggestionIndex, setSuggestionIndex] = useState(0)
+  const [modalOpen, setModalOpen] = useState(false)
+
+  // Infinite brand marquee
+  useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduced || !marqueeRef.current) return
 
-    const ctx = gsap.context(() => {
-      // Entrance animation
-      const tl = gsap.timeline({
-        defaults: { ease: 'power3.out' },
+    const tween = gsap.to(marqueeRef.current, {
+      xPercent: -50,
+      duration: 25,
+      ease: 'linear',
+      repeat: -1,
+    })
+
+    return () => {
+      tween.kill()
+    }
+  }, [])
+
+  // Rotating search suggestion
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (!suggestionRef.current) return
+      gsap.to(suggestionRef.current, {
+        opacity: 0,
+        y: -6,
+        duration: 0.35,
+        ease: 'power2.in',
+        onComplete: () => {
+          setSuggestionIndex((prev) => (prev + 1) % suggestions.length)
+          gsap.fromTo(
+            suggestionRef.current,
+            { opacity: 0, y: 6 },
+            { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' }
+          )
+        },
       })
+    }, 2600)
 
-      tl.from(eyebrowRef.current, { opacity: 0, y: 12, duration: reduced ? 0.01 : 0.6 })
-        .from(
-          headlineRef.current,
-          { opacity: 0, y: 30, duration: reduced ? 0.01 : 0.9 },
-          '-=0.3'
-        )
-        .from(
-          subtextRef.current,
-          { opacity: 0, y: 20, duration: reduced ? 0.01 : 0.7 },
-          '-=0.5'
-        )
-        .from(
-          ctaRef.current,
-          { opacity: 0, y: 20, duration: reduced ? 0.01 : 0.7 },
-          '-=0.5'
-        )
-        .from(
-          specCardRef.current,
-          { opacity: 0, scale: 0.95, duration: reduced ? 0.01 : 0.8 },
-          '-=0.6'
-        )
-
-      // Infinite marquee
-      if (!reduced && marqueeRef.current) {
-        gsap.to(marqueeRef.current, {
-          xPercent: -50,
-          duration: 25,
-          ease: 'linear',
-          repeat: -1,
-        })
-      }
-    }, heroRef)
-
-    return () => ctx.revert()
+    return () => clearInterval(id)
   }, [])
 
   return (
-    <section ref={heroRef} className="relative bg-black text-gray-50 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 pt-40 pb-24 lg:pt-48 lg:pb-32">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left: headline block */}
-          <div className="lg:col-span-8">
-            <span
-              ref={eyebrowRef}
-              className="inline-block font-display text-xs tracking-[0.25em] uppercase text-gold mb-6"
-            >
-              Dubai · United Arab Emirates
-            </span>
+    <section className="relative bg-black text-gray-50 overflow-hidden h-screen min-h-[640px]">
+      {/* Static background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${hero1})` }}
+      />
+      {/* Light overlay — just enough for the search bar to stay readable */}
+      <div className="absolute inset-0 bg-black/15" />
 
-            <h1
-              ref={headlineRef}
-              className="font-display font-light text-5xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-gray-50"
-            >
-              Placeholder headline goes here {' '}
-              <span className="text-gold">edit me</span>
-            </h1>
-
-            <p
-              ref={subtextRef}
-              className="mt-6 max-w-xl text-base sm:text-lg font-light tracking-wide text-gray-50/70"
-            >
-              Placeholder supporting sentence describing the fleet, service, and
-              what makes POF Rental different. Replace with real copy.
-            </p>
-
-            <div ref={ctaRef} className="mt-10 flex flex-wrap items-center gap-5">
-              <a
-                href="/motors/rental-cars"
-                className="bg-gold text-black text-sm font-medium tracking-wide px-7 py-3.5 rounded-full hover:bg-gold/90 transition-colors"
+      {/* Content — search bar only */}
+      <div className="relative z-10 h-full flex items-center justify-center">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 w-full flex justify-center">
+          <div
+            onClick={() => setModalOpen(true)}
+            className="relative flex items-center gap-2 max-w-xl w-full bg-white/[0.08] backdrop-blur-md border border-gold/30 rounded-full pl-6 pr-2 py-2 cursor-text hover:border-gold/60 transition-colors"
+          >
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onFocus={() => setModalOpen(true)}
+              className="flex-1 bg-transparent text-gray-50 outline-none text-sm sm:text-base font-light tracking-wide py-2.5"
+            />
+            {!query && (
+              <span
+                ref={suggestionRef}
+                className="absolute left-6 text-gray-50/60 text-sm sm:text-base font-light tracking-wide pointer-events-none"
               >
-                Browse the Fleet
-              </a>
-              <a
-                href="/chauffeur"
-                className="text-sm font-medium tracking-wide text-gray-50 border-b border-gray-50/30 hover:border-gold hover:text-gold transition-colors pb-1"
-              >
-                Reserve a Chauffeur
-              </a>
-            </div>
-          </div>
-
-          {/* Right: floating spec card — placeholder stats */}
-          <div ref={specCardRef} className="lg:col-span-4">
-            <div className="border border-gray-50/15 rounded-2xl px-7 py-8 backdrop-blur-sm bg-white/[0.02]">
-              <div className="flex flex-col gap-6">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs tracking-widest uppercase text-gray-50/50">
-                    0–100 km/h
-                  </span>
-                  <span className="font-display text-2xl text-gray-50">3.2s</span>
-                </div>
-                <div className="h-px bg-gray-50/10" />
-                <div className="flex items-center justify-between">
-                  <span className="text-xs tracking-widest uppercase text-gray-50/50">
-                    Peak Power
-                  </span>
-                  <span className="font-display text-2xl text-gray-50">818 hp</span>
-                </div>
-                <div className="h-px bg-gray-50/10" />
-                <div className="flex items-center justify-between">
-                  <span className="text-xs tracking-widest uppercase text-gray-50/50">
-                    Fleet Size
-                  </span>
-                  <span className="font-display text-2xl text-gray-50">45+</span>
-                </div>
-              </div>
-            </div>
+                {suggestions[suggestionIndex]}
+              </span>
+            )}
+            <button
+              type="button"
+              aria-label="Search"
+              onClick={(e) => {
+                e.stopPropagation()
+                setModalOpen(true)
+              }}
+              className="shrink-0 w-11 h-11 rounded-full bg-[#E7D3A1] hover:bg-[#efe0b8] flex items-center justify-center transition-colors"
+            >
+              <FaSearch className="text-black" size={14} />
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Brand marquee — signature element */}
-      <div className="border-t border-gray-50/10 py-6 overflow-hidden">
+      {/* Brand marquee */}
+      <div className="absolute bottom-0 inset-x-0 z-10 border-t border-gold/15 bg-black/30 backdrop-blur-sm py-5 overflow-hidden">
         <div ref={marqueeRef} className="flex w-max gap-16">
           {[...marqueeBrands, ...marqueeBrands].map((brand, i) => (
             <span
               key={`${brand}-${i}`}
-              className="font-display text-sm tracking-[0.2em] uppercase text-gray-50/40 whitespace-nowrap"
+              className="font-display text-sm tracking-[0.2em] uppercase text-gray-50/60 whitespace-nowrap"
             >
               {brand}
             </span>
           ))}
         </div>
       </div>
+
+      <BookingModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        initialCarModel={query}
+      />
     </section>
   )
 }
