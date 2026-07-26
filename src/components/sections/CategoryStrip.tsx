@@ -83,7 +83,7 @@ function CategoryStrip() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         {/* Section header */}
         <div ref={headingRef} className="mb-12">
-          <span className="block text-[11px] uppercase tracking-[0.25em] text-gold mb-3">
+          <span className="block text-[11px] font-semibold uppercase tracking-[0.25em] text-black/55 mb-3">
             Browse by Type
           </span>
           <h2 className="font-display text-3xl sm:text-4xl font-light tracking-tight text-black">

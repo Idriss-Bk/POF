@@ -58,7 +58,7 @@ function AccordionItem({ question, answer, defaultOpen = false }: AccordionItemP
           open ? 'max-h-96 opacity-100 pb-5' : 'max-h-0 opacity-0'
         }`}
       >
-        <p className="text-sm font-light leading-relaxed tracking-wide text-black/60">
+        <p className="text-sm font-normal leading-relaxed tracking-wide text-black/80">
           {answer}
         </p>
       </div>

@@ -60,21 +60,21 @@ function SplashScreen() {
       {/* Left door panel */}
       <div ref={leftPanelRef} className="absolute inset-y-0 left-0 w-1/2 bg-black overflow-hidden">
         <div className="absolute inset-0 flex justify-end gap-12 pr-16 opacity-[0.12]">
-          <span className="w-px h-full bg-gold" />
-          <span className="w-px h-full bg-gold" />
+          {/* <span className="w-px h-full bg-gold" />
+          <span className="w-px h-full bg-gold" /> */}
         </div>
         {/* door seam accent */}
-        <span className="absolute right-0 inset-y-0 w-px bg-gold/60" />
+        {/* <span className="absolute right-0 inset-y-0 w-px bg-gold/60" /> */}
       </div>
 
       {/* Right door panel */}
       <div ref={rightPanelRef} className="absolute inset-y-0 right-0 w-1/2 bg-black overflow-hidden">
         <div className="absolute inset-0 flex gap-12 pl-16 opacity-[0.12]">
-          <span className="w-px h-full bg-gold" />
-          <span className="w-px h-full bg-gold" />
+          {/* <span className="w-px h-full bg-gold" />
+          <span className="w-px h-full bg-gold" /> */}
         </div>
         {/* door seam accent */}
-        <span className="absolute left-0 inset-y-0 w-px bg-gold/60" />
+        {/* <span className="absolute left-0 inset-y-0 w-px bg-gold/60" /> */}
       </div>
 
       {/* Logo, centered above both panels */}

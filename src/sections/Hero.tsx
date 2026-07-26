@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { FaSearch } from 'react-icons/fa'
-import hero1 from '../assets/hero-1.png'
-import hero2 from '../assets/hero-2.png'
+import heroimg from '../assets/newhero.png'
+import heroMobileImg from '../assets/newhero-mobile.png'
 import hero3 from '../assets/hero-3.webp'
 import BookingModal from './BookingModal'
 
@@ -75,20 +75,33 @@ function Hero() {
 
   return (
     <section className="relative bg-black text-gray-50 overflow-hidden h-screen min-h-[640px]">
-      {/* Static background image */}
+      {/* Mobile background — shown below md breakpoint */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${hero1})` }}
+        className="absolute inset-0 bg-cover bg-center block md:hidden"
+        style={{ backgroundImage: `url(${heroMobileImg})` }}
       />
-      {/* Light overlay — just enough for the search bar to stay readable */}
-      <div className="absolute inset-0 bg-black/15" />
+      {/* Desktop background — shown from md breakpoint up */}
+      <div
+        className="absolute inset-0 bg-cover bg-center hidden md:block"
+        style={{ backgroundImage: `url(${heroimg})` }}
+      />
+      {/* Base veil — subtle global darken */}
+      <div className="absolute inset-0 bg-black/5" />
+      {/* Radial gradient — darkens the center where the search bar lives */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 80% 70% at 50% 50%, rgba(0,0,0,0.20) 0%, transparent 100%)',
+        }}
+      />
 
       {/* Content — search bar only */}
       <div className="relative z-10 h-full flex items-center justify-center">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 w-full flex justify-center">
           <div
             onClick={() => setModalOpen(true)}
-            className="relative flex items-center gap-2 max-w-xl w-full bg-white/[0.08] backdrop-blur-md border border-gold/30 rounded-full pl-6 pr-2 py-2 cursor-text hover:border-gold/60 transition-colors"
+            className="relative flex items-center gap-2 max-w-xl w-full bg-white/[0.08] backdrop-blur-md border border-gold/30 rounded-full pl-6 pr-2 py-2 cursor-text hover:border-gold/60 transition-colors shadow-[0_8px_40px_rgba(0,0,0,0.55)]"
           >
             <input
               type="text"

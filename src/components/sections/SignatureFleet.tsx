@@ -58,7 +58,7 @@ function SignatureFleet() {
     <section ref={sectionRef} id="signature-fleet" className="bg-white text-black">
       {/* Section header */}
       <div className="mx-auto max-w-7xl px-6 lg:px-10 pt-24 pb-4">
-        <span className="block text-[11px] uppercase tracking-[0.25em] text-gold mb-3">
+        <span className="block text-[11px] font-semibold uppercase tracking-[0.25em] text-gold mb-3">
           Our Fleet
         </span>
         <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-black">
@@ -110,7 +110,7 @@ function SignatureFleet() {
               }`}
             >
               <div>
-                <span className="block text-[10px] uppercase tracking-[0.25em] text-gold/70 mb-2">
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.25em] text-black/50 mb-2">
                   {car.tagline}
                 </span>
                 <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-light tracking-tight text-black">
@@ -118,7 +118,7 @@ function SignatureFleet() {
                 </h3>
               </div>
 
-              <p className="text-sm sm:text-base font-light leading-relaxed text-black/60 max-w-prose">
+              <p className="text-sm sm:text-base font-normal leading-relaxed text-black/80 max-w-prose">
                 {car.description}
               </p>
 
@@ -173,13 +173,13 @@ function SignatureFleet() {
           </div>
           {/* Text — 3 columns wide */}
           <div className="lg:col-span-3 p-8 lg:p-10 flex flex-col gap-5">
-            <span className="block text-[10px] uppercase tracking-[0.25em] text-gold/70">
+            <span className="block text-[10px] font-semibold uppercase tracking-[0.25em] text-gold/70">
               New Category
             </span>
             <h3 className="font-display text-xl sm:text-2xl font-light tracking-tight text-black">
               {chineseLuxuryCard.heading}
             </h3>
-            <p className="text-sm font-light leading-relaxed text-black/60">
+            <p className="text-sm font-normal leading-relaxed text-black/80">
               {chineseLuxuryCard.body}
             </p>
             {/* TODO: wire to real route once routing is added */}

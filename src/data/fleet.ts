@@ -85,7 +85,7 @@ export const chineseLuxuryCard: ChineseLuxuryCard = {
   heading: 'Chinese Luxury — A New Benchmark',
   body: 'Discover Hongqi, Voyah, and BYD Han — flagship models redefining what luxury looks like at any price point. Exclusive to POF Rental in the UAE.',
   // TODO: replace with real asset — chinese-luxury-suv.webp
-  imageSrc: '',
+  imageSrc: 'https://pof-rental-live-bucket.s3.me-central-1.amazonaws.com/inventory/cmja5chhv003zywp9ui8w0s5t/cmja5chhv003zywp9ui8w0s5t-front-angle-1783933275215-509748661.webp',
   imageAlt: 'Chinese luxury SUV exterior',
   // TODO: wire to real route once routing is added
   href: '#',

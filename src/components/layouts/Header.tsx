@@ -1,4 +1,4 @@
-import { useRef, useState, useLayoutEffect } from 'react'
+import { useRef, useState, useLayoutEffect, useEffect } from 'react'
 import gsap from 'gsap'
 import { FaRegUser } from 'react-icons/fa'
 import { primaryLinks, menuLinks } from '../../data/navigation'
@@ -6,6 +6,8 @@ import logo from '../../assets/nav-logo.png'
 
 function Header() {
   const [open, setOpen] = useState<boolean>(false)
+  const [userOpen, setUserOpen] = useState<boolean>(false)
+  const userRef = useRef<HTMLDivElement | null>(null)
   const tl = useRef<gsap.core.Timeline | null>(null)
   const overlayRef = useRef<HTMLDivElement | null>(null)
   const linksRef = useRef<HTMLAnchorElement[]>([])
@@ -49,6 +51,17 @@ function Header() {
     })
 
     return () => ctx.revert()
+  }, [])
+
+  // Close user dropdown when clicking outside
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (userRef.current && !userRef.current.contains(e.target as Node)) {
+        setUserOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
   }, [])
 
   const toggleMenu = () => {
@@ -98,14 +111,39 @@ function Header() {
             </a>
 
 
-            {/* Login / account — icon only */}
-            <a
-              href="/login"
-              aria-label="Login or sign up"
-              className="w-9 h-9 flex items-center justify-center rounded-full text-gray-50 hover:text-gold transition-colors"
-            >
-              <FaRegUser size={16} />
-            </a>
+            {/* Login / account — icon with dropdown */}
+            <div ref={userRef} className="relative">
+              <button
+                onClick={() => setUserOpen((v) => !v)}
+                aria-label="Account menu"
+                aria-expanded={userOpen}
+                className="w-9 h-9 flex items-center justify-center rounded-full text-gray-50 hover:text-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+              >
+                <FaRegUser size={16} />
+              </button>
+
+              {/* Dropdown */}
+              {userOpen && (
+                <div className="absolute right-0 top-full mt-2 w-40 bg-black border border-white/10 rounded-sm shadow-[0_8px_32px_rgba(0,0,0,0.6)] overflow-hidden z-50">
+                  {/* TODO: wire to real auth routes */}
+                  <a
+                    href="#"
+                    className="flex items-center px-4 py-3 text-sm font-light text-gray-50 hover:bg-white/[0.06] hover:text-gold transition-colors"
+                    onClick={() => setUserOpen(false)}
+                  >
+                    Sign In
+                  </a>
+                  <div className="h-px bg-white/8" />
+                  <a
+                    href="#"
+                    className="flex items-center px-4 py-3 text-sm font-light text-gray-50 hover:bg-white/[0.06] hover:text-gold transition-colors"
+                    onClick={() => setUserOpen(false)}
+                  >
+                    Sign Up
+                  </a>
+                </div>
+              )}
+            </div>
 
             {/* Icon menu button — visible at every screen size */}
             <button

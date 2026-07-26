@@ -129,7 +129,7 @@ function WhyChooseUs() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         {/* Header */}
         <div ref={headingRef} className="mb-14">
-          <span className="block text-[11px] uppercase tracking-[0.25em] text-gold mb-3">
+          <span className="block text-[11px] font-semibold uppercase tracking-[0.25em] text-black/55 mb-3">
             Why POF Rental
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-black">
@@ -156,10 +156,10 @@ function WhyChooseUs() {
                   <span className="font-display text-2xl font-medium text-gold leading-none">
                     {stat}
                   </span>
-                  <p className="font-display text-sm tracking-wide text-black mt-0.5">{label}</p>
+                  <p className="font-display text-sm tracking-wide text-black/55 mt-0.5">{label}</p>
                 </div>
               </div>
-              <p className="text-sm font-light leading-relaxed text-black/55 pl-[52px]">{desc}</p>
+              <p className="text-sm font-normal leading-relaxed text-black/60 pl-[52px]">{desc}</p>
             </div>
           ))}
         </div>

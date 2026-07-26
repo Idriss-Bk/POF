@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 // TODO: replace with real asset import once available:
 // import bannerImage from '../../assets/images/full-range-banner.webp'
-const bannerImage = '' // TODO: replace with real asset
+const bannerImage = 'https://pof-rental-live-bucket.s3.me-central-1.amazonaws.com/inventory/cmja5chac002mywp9y311li6d/cmja5chac002mywp9y311li6d--1772691344504-787686092.jpg' // TODO: replace with real asset
 
 function FullRangeBanner() {
   const sectionRef = useRef<HTMLElement | null>(null)
@@ -58,22 +58,22 @@ function FullRangeBanner() {
         />
       ) : (
         // TODO: replace with real asset — full-range-banner.webp
-        <div className="absolute inset-0 bg-gradient-to-br from-neutral-100 via-white to-neutral-50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900" />
       )}
 
-      {/* Overlay gradient — left-to-right, white on left for copy legibility over image */}
-      <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/70 to-white/10" />
+      {/* Overlay gradient — black on left for copy legibility over image */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/10" />
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10 py-24 lg:py-32">
         <div ref={contentRef} className="max-w-xl">
-          <span className="block text-[11px] uppercase tracking-[0.25em] text-gold mb-4">
+          <span className="block text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-50/70 mb-4">
             200+ Vehicles
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-black leading-tight">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-gray-50 leading-tight">
             Every drive, <br className="hidden sm:block" />perfectly matched.
           </h2>
-          <p className="mt-5 text-sm sm:text-base font-light leading-relaxed text-black/60 max-w-md">
+          <p className="mt-5 text-sm sm:text-base font-normal leading-relaxed text-gray-50/80 max-w-md">
             From daily sports to weekend supercars and long-lease business vehicles — find every
             model we operate, in one place.
           </p>

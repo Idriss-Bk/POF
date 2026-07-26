@@ -100,7 +100,7 @@ function MembershipSection() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         {/* Header */}
         <div ref={headingRef} className="mb-14 max-w-2xl">
-          <span className="block text-[11px] uppercase tracking-[0.25em] text-gold mb-3">
+          <span className="block text-[11px] font-semibold uppercase tracking-[0.25em] text-black/55 mb-3">
             Membership
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-black">
@@ -108,7 +108,7 @@ function MembershipSection() {
             <span className="text-gold">for Members</span>
           </h2>
           <div className="mt-4 w-12 h-px bg-gold" />
-          <p className="mt-5 text-sm sm:text-base font-light leading-relaxed text-black/55 max-w-prose">
+          <p className="mt-5 text-sm sm:text-base font-normal leading-relaxed text-black/80 max-w-prose">
             Join POF Rental's exclusive membership and enjoy a suite of privileges designed for
             those who drive differently.
           </p>

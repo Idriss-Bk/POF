@@ -54,7 +54,7 @@ function FAQAccordion() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Left: heading column */}
           <div className="lg:col-span-4 lg:sticky lg:top-24 self-start">
-            <span className="block text-[11px] uppercase tracking-[0.25em] text-gold mb-3">
+            <span className="block text-[11px] font-semibold uppercase tracking-[0.25em] text-black/55 mb-3">
               FAQ
             </span>
             <h2 className="font-display text-3xl sm:text-4xl font-light tracking-tight text-black leading-snug">
@@ -62,7 +62,7 @@ function FAQAccordion() {
               <span className="text-gold">Answered.</span>
             </h2>
             <div className="mt-4 w-12 h-px bg-gold" />
-            <p className="mt-5 text-sm font-light leading-relaxed text-black/50">
+            <p className="mt-5 text-sm font-normal leading-relaxed text-black/60">
               Everything you need to know about renting with POF Rental — deposits, delivery,
               insurance, and more.
             </p>

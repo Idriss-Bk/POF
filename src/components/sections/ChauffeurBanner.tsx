@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 // TODO: replace with real asset import once available:
 // import chauffeurImage from '../../assets/images/chauffeur-rolls-royce.webp'
-const chauffeurImage = '' // TODO: replace with real asset
+const chauffeurImage = 'https://www.pofrental.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fchauffeur-desktop.0xjrn.i1tgg2k.webp&w=3840&q=75' // TODO: replace with real asset
 
 const highlights = [
   'Meet & greet at any UAE airport',
@@ -64,26 +64,26 @@ function ChauffeurBanner() {
         />
       ) : (
         // TODO: replace with real asset — chauffeur-rolls-royce.webp
-        <div className="absolute inset-0 bg-gradient-to-br from-neutral-100 via-neutral-50 to-white" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-neutral-900 via-neutral-800 to-neutral-900" />
       )}
 
-      {/* Gradient: white-to-transparent, left side for text legibility over image */}
-      <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/65 to-transparent" />
+      {/* Gradient: black on right for text legibility, transparent on left showing the image */}
+      <div className="absolute inset-0 bg-gradient-to-l from-black/90 via-black/60 to-transparent" />
 
-      {/* Gold accent line */}
-      <div className="absolute left-0 inset-y-0 w-px bg-gold/30" />
+      {/* Gold accent line — right edge */}
+      <div className="absolute right-0 inset-y-0 w-px bg-gold/30" />
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10 py-24 lg:py-36">
-        <div ref={contentRef} className="max-w-lg">
-          <span className="block text-[11px] uppercase tracking-[0.25em] text-gold mb-4">
+        <div ref={contentRef} className="max-w-lg ml-auto">
+          <span className="block text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-50/70 mb-4">
             Chauffeur Service
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-black leading-tight">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-gray-50 leading-tight">
             Your Personal Chauffeur,{' '}
             <em className="not-italic text-gold">On Demand.</em>
           </h2>
-          <p className="mt-5 text-sm sm:text-base font-light leading-relaxed text-black/60 max-w-sm">
+          <p className="mt-5 text-sm sm:text-base font-normal leading-relaxed text-gray-50/80 max-w-sm">
             Arrive in presence. Our professional chauffeurs operate across all seven Emirates —
             discreet, punctual, and impeccably presented.
           </p>
@@ -91,7 +91,7 @@ function ChauffeurBanner() {
           {/* Service highlights */}
           <ul className="mt-7 flex flex-col gap-2.5" aria-label="Chauffeur service highlights">
             {highlights.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-sm font-light text-black/60">
+              <li key={item} className="flex items-center gap-3 text-sm font-normal text-gray-50/80">
                 <span className="w-1 h-1 rounded-full bg-gold shrink-0" />
                 {item}
               </li>
