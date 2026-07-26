@@ -110,7 +110,7 @@ function Header() {
       {/* Full-screen menu overlay */}
       <div
         ref={overlayRef}
-        className="fixed inset-0 z-40 bg-neutral-900 flex items-center justify-center"
+        className="fixed inset-0 z-40 bg-black flex items-center justify-center"
         style={{ clipPath: 'inset(0% 0% 100% 0%)' }}
       >
         <nav className="flex flex-col items-center gap-6  ">

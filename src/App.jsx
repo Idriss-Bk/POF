@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Header from './components/layouts/Header'
 import Footer from './components/layouts/Footer'
+import Hero from './sections/Hero'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -9,7 +10,7 @@ function App() {
   return (
     <>
     <Header/>
-    <div className='h-full w-full bg-white'></div>
+    <Hero/>
     <Footer/>
      
     </>
