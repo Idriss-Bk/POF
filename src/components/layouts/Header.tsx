@@ -87,8 +87,8 @@ function Header() {
           </nav>
 
           <div className="flex items-center gap-4">
-            
-            
+
+
 
             <a
               href="/easytogo"
@@ -98,7 +98,7 @@ function Header() {
             </a>
 
 
-{/* Login / account — icon only */}
+            {/* Login / account — icon only */}
             <a
               href="/login"
               aria-label="Login or sign up"

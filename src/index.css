@@ -2,4 +2,7 @@
 
 @theme {
   --font-display: "Jost", sans-serif;
+
+  /* Brand gold — #CAB07F — used as text-gold, bg-gold, border-gold throughout */
+  --color-gold: #CAB07F;
 }
