@@ -234,7 +234,7 @@ function Hero() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onFocus={() => setModalOpen(true)}
-              className="flex-1 bg-transparent text-gray-50 outline-none text-sm sm:text-base font-light tracking-wide py-2.5"
+              className="flex-1 bg-transparent text-gray-50 outline-none text-base font-light tracking-wide py-2.5"
             />
             {!query && (
               <span

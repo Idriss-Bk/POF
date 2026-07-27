@@ -60,7 +60,7 @@ function ChauffeurBanner() {
           loading="lazy"
           width={1440}
           height={700}
-          className="absolute inset-0 w-full h-full object-cover object-right"
+          className="absolute inset-0 w-full h-full object-cover object-center md:object-right"
         />
       ) : (
         // TODO: replace with real asset — chauffeur-rolls-royce.webp
