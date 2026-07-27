@@ -1,0 +1,29 @@
+# POF Rental — Homepage Redesign
+
+A redesigned homepage for **POF Rental**, a luxury and exotic car rental company based in Dubai, UAE. This project reimagines the site's landing page with a modern, high-end aesthetic that reflects the brand's premium fleet — Ferrari, Lamborghini, Rolls-Royce, Bentley, and more.
+
+## About
+
+POF Rental offers luxury, exotic, and sports car rentals in Dubai with flexible daily and long-term leasing, chauffeur service, airport delivery, and a members-only rewards program. This project focuses on rebuilding the public-facing homepage with a cleaner structure, stronger visual hierarchy, and improved performance.
+
+## Tech Stack
+
+- **React** (Vite)
+- **Tailwind CSS v4**
+
+## Sections
+
+- Header — navigation with scroll-aware styling
+- Hero — brand statement, fleet highlights, and call-to-action
+- Footer — locations, brand directory, and site links
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+## Status
+
+🚧 Work in progress — currently building Header, Hero, and Footer sections.
