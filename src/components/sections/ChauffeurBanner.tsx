@@ -2,6 +2,9 @@
 // Reuses the chauffeur + Rolls-Royce imagery concept from the current site.
 // Refined copy and CTA vs the current flat layout.
 //
+// Mobile: image and text are stacked (photo on top, text below) instead of overlaid.
+// Desktop (md+): image is a full-bleed background with text overlaid on the right.
+//
 // TODO: replace imageSrc with real asset — chauffeur-rolls-royce.webp
 
 import { useLayoutEffect, useRef } from 'react'
@@ -52,30 +55,32 @@ function ChauffeurBanner() {
       className="relative bg-black overflow-hidden"
       aria-label="Chauffeur service"
     >
-      {/* Background image */}
-      {chauffeurImage ? (
-        <img
-          src={chauffeurImage}
-          alt="POF Rental chauffeur with Rolls-Royce"
-          loading="lazy"
-          width={1440}
-          height={700}
-          className="absolute inset-0 w-full h-full object-cover object-center md:object-right"
-        />
-      ) : (
-        // TODO: replace with real asset — chauffeur-rolls-royce.webp
-        <div className="absolute inset-0 bg-gradient-to-bl from-neutral-900 via-neutral-800 to-neutral-900" />
-      )}
+      {/* Image — stacked block on mobile, full absolute background from md up */}
+      <div className="relative h-72 sm:h-96 md:absolute md:inset-0 md:h-auto">
+        {chauffeurImage ? (
+          <img
+            src={chauffeurImage}
+            alt="POF Rental chauffeur with Rolls-Royce"
+            loading="lazy"
+            width={1440}
+            height={700}
+            className="w-full h-full object-cover object-center md:object-right"
+          />
+        ) : (
+          // TODO: replace with real asset — chauffeur-rolls-royce.webp
+          <div className="w-full h-full bg-gradient-to-bl from-neutral-900 via-neutral-800 to-neutral-900" />
+        )}
 
-      {/* Gradient: black on right for text legibility, transparent on left showing the image */}
-      <div className="absolute inset-0 bg-gradient-to-l from-black/90 via-black/60 to-transparent" />
+        {/* Gradient for text legibility — only needed once text overlays the image, so desktop only */}
+        <div className="hidden md:block absolute inset-0 bg-gradient-to-l from-black/90 via-black/60 to-transparent" />
+      </div>
 
-      {/* Gold accent line — right edge */}
-      <div className="absolute right-0 inset-y-0 w-px bg-gold/30" />
+      {/* Gold accent line — right edge, desktop only (mobile has no overlay to frame) */}
+      <div className="hidden md:block absolute right-0 inset-y-0 w-px bg-gold/30" />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10 py-24 lg:py-36">
-        <div ref={contentRef} className="max-w-lg ml-auto">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10 py-12 md:py-24 lg:py-36">
+        <div ref={contentRef} className="max-w-lg md:ml-auto">
           <span className="block text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-50/70 mb-4">
             Chauffeur Service
           </span>
